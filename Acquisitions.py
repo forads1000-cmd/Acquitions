@@ -50,7 +50,7 @@ def classify_article(title):
     return None
  
 def fetch_articles(query):
-    url = f"https://news.google.com/rss/search?q={query}&hl=en&gl=US&ceid=US:en"
+    url = f"https://news.google.com/rss/search?q={query}&hl=en-IN&gl=IN&ceid=IN:en"
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "xml")
     items = soup.find_all("item")
