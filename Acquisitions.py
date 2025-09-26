@@ -110,6 +110,7 @@ def main():
     df = pd.DataFrame(unique_results)
  
     if not df.empty:
+        df["acquirer"] = df["title"].apply(extract_acquirer)
         st.success(f"Found {len(df)} relevant news articles")
         st.dataframe(df)
  
