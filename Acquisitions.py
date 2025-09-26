@@ -5,6 +5,30 @@ import re
 from datetime import datetime, timedelta
 import pandas as pd
 import io
+import re
+
+TRIGGERS = [
+    "acquire", "acquires", "acquired", "acquisition", 
+    "merge", "merges", "merged", 
+    "takeover", "buy", "buys", "bought"
+]
+
+def extract_acquirer(title: str) -> str:
+    """
+    Extracts the likely acquirer from a news headline.
+    Finds the part before trigger words like 'acquires', 'merges', etc.
+    """
+    title_clean = title.strip()
+    title_lower = title_clean.lower()
+    
+    for trigger in TRIGGERS:
+        match = re.search(rf"\b{trigger}\b", title_lower)
+        if match:
+            idx = match.start()
+            before = title_clean[:idx].strip(" -,:;")
+            return before
+    return None
+
  
 # Keyword buckets
 KEYWORDS = {
